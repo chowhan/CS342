@@ -28,10 +28,10 @@ class Block(nn.Module):
         #     nn.AvgPool2d(3)
         # )
 
-        self.conv1 = nn.Conv2d(in_channel, out_channel, 5, stride, 1)
+        self.conv1 = nn.Conv2d(in_channel, out_channel, 3, stride, 1)
         self.bn1 = nn.BatchNorm2d(out_channel)
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(out_channel, out_channel, 5, stride, 1)
+        self.conv2 = nn.Conv2d(out_channel, out_channel, 3, stride, 1)
         self.bn2 = nn.BatchNorm2d(out_channel)
         self.conv3 = nn.Conv2d(in_channel, out_channel, 1, stride, 1)
         self.bn3 = nn.BatchNorm2d(in_channel)
