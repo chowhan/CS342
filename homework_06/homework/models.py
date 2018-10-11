@@ -116,8 +116,6 @@ class ConvNetModel(nn.Module):
         '''
         
         x = self.conv1(x)
-        h1 = self.res_block1(x)
-        x = self.conv2(h1 + x)
         h2 = self.res_block2(x)
         x = self.conv3(h2 + x)
         h3 = self.res_block3(x)
