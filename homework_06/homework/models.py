@@ -50,8 +50,8 @@ class Block(nn.Module):
         out = self.conv3(out)
         out = self.bn3(out)
 
-        x += out
-        x = self.relu(x)
+        out += x
+        x = self.relu(out)
         return x
         
     
@@ -100,4 +100,3 @@ class ConvNetModel(nn.Module):
         x = self.fc(x)
 
         return x
-
