@@ -33,7 +33,7 @@ class Block(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.conv2 = nn.Conv2d(out_channel, out_channel, 5, stride, 1)
         self.bn2 = nn.BatchNorm2d(out_channel)
-        self.conv3 = nn.Conv2d(out_channel, in_channel, 5, stride, 1)
+        self.conv3 = nn.Conv2d(in_channel, out_channel, 1, stride, 1)
         self.bn3 = nn.BatchNorm2d(in_channel)
         self.stride = stride
     
@@ -41,8 +41,8 @@ class Block(nn.Module):
         '''
         Your code here
         '''
-        out = x
-        out = self.conv1(out)
+        res = x
+        out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
         out = self.conv2(out)
@@ -50,7 +50,9 @@ class Block(nn.Module):
         out = self.conv3(out)
         out = self.bn3(out)
 
-        out += x
+        if self.stride != 1:
+            res = self.conv3(x)
+        out += res
         x = self.relu(out)
         return x
         
