@@ -53,10 +53,13 @@ class ConvNetModel(nn.Module):
         self.res_block1 = nn.Sequential(
             nn.Conv2d(32, 32, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,32, affine=False),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,32, affine=False),
             nn.Conv2d(32, 32, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,32, affine=False),
         )
 
         self.conv2 = nn.Conv2d(32, 64, 5)
@@ -64,10 +67,13 @@ class ConvNetModel(nn.Module):
         self.res_block2 = nn.Sequential(
             nn.Conv2d(64, 64, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,64, affine=False),
             nn.Conv2d(64, 64, 3, 1, 1),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,64, affine=False),
             nn.Conv2d(64, 64, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,64, affine=False),
         )
 
         self.conv3 = nn.Conv2d(64, 128, 5)
@@ -75,10 +81,13 @@ class ConvNetModel(nn.Module):
         self.res_block3 = nn.Sequential(
             nn.Conv2d(128, 128, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,128, affine=False),
             nn.Conv2d(128, 128, 3, 1, 1),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,128, affine=False),
             nn.Conv2d(128, 128, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,128, affine=False),
         )
 
         self.conv4 = nn.Conv2d(128, 256, 5)
@@ -86,10 +95,13 @@ class ConvNetModel(nn.Module):
         self.res_block4 = nn.Sequential(
             nn.Conv2d(256, 256, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,256, affine=False),
             nn.Conv2d(256, 256, 3, 1, 1),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,256, affine=False),
             nn.Conv2d(256, 256, 1, 1, 0),
             nn.ReLU(True),
+            torch.nn.GroupNorm(4,256, affine=False),
         )
 
         self.conv5 = nn.Conv2d(256, 12, 5)
