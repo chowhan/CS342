@@ -126,7 +126,7 @@ class ConvNetModel(nn.Module):
         x = self.conv4(h3 + x)
         h4 = self.res_block4(x)
         x = self.conv5(h4 + x)
-        x = self.pool(x)
+        #x = self.pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
         return x
