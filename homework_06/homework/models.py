@@ -94,7 +94,7 @@ class ConvNetModel(nn.Module):
 
         self.conv5 = nn.Conv2d(256, 12, 5)
         self.pool = nn.MaxPool2d(2)
-        self.linear = nn.Linear(9408, 6)
+        self.linear = nn.Linear(5808, 64)
     
     def forward(self, x):
         '''
