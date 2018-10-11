@@ -104,7 +104,7 @@ class ConvNetModel(nn.Module):
             torch.nn.BatchNorm2d(128),
         )
 
-        self.conv5 = nn.Conv2d(128, 12, 5)
+        self.conv5 = nn.Conv2d(128, 6, 5)
         #self.pool = nn.MaxPool2d(2)
         self.linear = nn.Linear(23232, 64)
         nn.init.constant_(self.linear.weight, 0)
