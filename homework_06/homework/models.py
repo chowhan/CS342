@@ -47,22 +47,8 @@ class ConvNetModel(nn.Module):
         '''
         Your code here
         '''
-        self.conv1 = nn.Conv2d(3, 32, 5)
+        self.conv1 = nn.Conv2d(3, 64, 5)
         # You can wrap all the layers using the nn.Sequential which will make your
-
-        self.res_block1 = nn.Sequential(
-            nn.Conv2d(32, 32, 1, 1, 0),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,32, affine=False),
-            nn.Conv2d(32, 32, 3, 1, 1),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,32, affine=False),
-            nn.Conv2d(32, 32, 1, 1, 0),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,32, affine=False),
-        )
-
-        self.conv2 = nn.Conv2d(32, 64, 5)
 
         self.res_block2 = nn.Sequential(
             nn.Conv2d(64, 64, 1, 1, 0),
