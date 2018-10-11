@@ -47,64 +47,64 @@ class ConvNetModel(nn.Module):
         '''
         Your code here
         '''
-        self.conv1 = nn.Conv2d(3, 64, 5)
+        self.conv1 = nn.Conv2d(3, 16, 5)
         # You can wrap all the layers using the nn.Sequential which will make your
 
-        self.res_block2 = nn.Sequential(
-            nn.Conv2d(64, 64, 1, 1, 0),
+        self.res_block1 = nn.Sequential(
+            nn.Conv2d(16, 16, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,64, affine=False),
-            nn.Conv2d(64, 64, 3, 1, 1),
+            torch.nn.BatchNorm2d(16),
+            nn.Conv2d(16, 16, 3, 1, 1),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,64, affine=False),
-            nn.Conv2d(64, 64, 1, 1, 0),
+            torch.nn.BatchNorm2d(16),
+            nn.Conv2d(16, 16, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,64, affine=False),
+            torch.nn.BatchNorm2d(16),
         )
 
-        self.conv3 = nn.Conv2d(64, 128, 5)
+        self.conv2 = nn.Conv2d(16, 32, 5)
+
+        self.res_block2 = nn.Sequential(
+            nn.Conv2d(32, 32, 1, 1, 0),
+            nn.ReLU(True),
+            torch.nn.BatchNorm2d(32),
+            nn.Conv2d(32, 32, 3, 1, 1),
+            nn.ReLU(True),
+            torch.nn.BatchNorm2d(32),
+            nn.Conv2d(32, 32, 1, 1, 0),
+            nn.ReLU(True),
+            torch.nn.BatchNorm2d(32),
+        )
+
+        self.conv3 = nn.Conv2d(32, 64, 5)
 
         self.res_block3 = nn.Sequential(
-            nn.Conv2d(128, 128, 1, 1, 0),
+            nn.Conv2d(64, 64, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,128, affine=False),
-            nn.Conv2d(128, 128, 3, 1, 1),
+            torch.nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, 3, 1, 1),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,128, affine=False),
-            nn.Conv2d(128, 128, 1, 1, 0),
+            torch.nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,128, affine=False),
+            torch.nn.BatchNorm2d(64),
         )
 
-        self.conv4 = nn.Conv2d(128, 256, 5)
+        self.conv4 = nn.Conv2d(64, 128, 5)
 
         self.res_block4 = nn.Sequential(
-            nn.Conv2d(256, 256, 1, 1, 0),
+            nn.Conv2d(128, 128, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,256, affine=False),
-            nn.Conv2d(256, 256, 3, 1, 1),
+            torch.nn.BatchNorm2d(128),
+            nn.Conv2d(128, 128, 3, 1, 1),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,256, affine=False),
-            nn.Conv2d(256, 256, 1, 1, 0),
+            torch.nn.BatchNorm2d(128),
+            nn.Conv2d(128, 128, 1, 1, 0),
             nn.ReLU(True),
-            torch.nn.GroupNorm(4,256, affine=False),
+            torch.nn.BatchNorm2d(128),
         )
 
-        self.conv5 = nn.Conv2d(256, 512, 5)
-
-        self.res_block5 = nn.Sequential(
-            nn.Conv2d(512, 512, 1, 1, 0),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,512, affine=False),
-            nn.Conv2d(512, 512, 3, 1, 1),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,512, affine=False),
-            nn.Conv2d(512, 512, 1, 1, 0),
-            nn.ReLU(True),
-            torch.nn.GroupNorm(4,512, affine=False),
-        )
-
-        self.conv6 = nn.Conv2d(512, 12, 5)
+        self.conv5 = nn.Conv2d(128, 12, 5)
         self.pool = nn.MaxPool2d(2)
         self.linear = nn.Linear(5808, 64)
     
@@ -116,14 +116,14 @@ class ConvNetModel(nn.Module):
         '''
         
         x = self.conv1(x)
+        h1 = self.res_block1(x)
+        x = self.conv2(h1 + x)
         h2 = self.res_block2(x)
         x = self.conv3(h2 + x)
         h3 = self.res_block3(x)
         x = self.conv4(h3 + x)
         h4 = self.res_block4(x)
         x = self.conv5(h4 + x)
-        h5 = self.res_block5(x)
-        x = self.conv6(h5 + x)
         x = self.pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
