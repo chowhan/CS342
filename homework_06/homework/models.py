@@ -104,7 +104,21 @@ class ConvNetModel(nn.Module):
             torch.nn.GroupNorm(4,256, affine=False),
         )
 
-        self.conv5 = nn.Conv2d(256, 12, 5)
+        self.conv5 = nn.Conv2d(256, 512, 5)
+
+        self.res_block5 = nn.Sequential(
+            nn.Conv2d(512, 512, 1, 1, 0),
+            nn.ReLU(True),
+            torch.nn.GroupNorm(4,512, affine=False),
+            nn.Conv2d(512, 512, 3, 1, 1),
+            nn.ReLU(True),
+            torch.nn.GroupNorm(4,512, affine=False),
+            nn.Conv2d(512, 512, 1, 1, 0),
+            nn.ReLU(True),
+            torch.nn.GroupNorm(4,512, affine=False),
+        )
+
+        self.conv6 = nn.Conv2d(512, 12, 5)
         self.pool = nn.MaxPool2d(2)
         self.linear = nn.Linear(5808, 64)
     
@@ -124,6 +138,8 @@ class ConvNetModel(nn.Module):
         x = self.conv4(h3 + x)
         h4 = self.res_block4(x)
         x = self.conv5(h4 + x)
+        h5 = self.res_block5(x)
+        x = self.conv6(h5 + x)
         x = self.pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
