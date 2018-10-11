@@ -51,7 +51,7 @@ def train(iterations, batch_size=64, log_dir=None):
     train_inputs, train_labels = load(os.path.join('tux_train.dat'))
     val_inputs, val_labels = load(os.path.join('tux_valid.dat'))
     
-    model = ConvNetModel()
+    model = ConvNetModel().cuda()
 
     log = None
     if log_dir is not None:
@@ -70,8 +70,8 @@ def train(iterations, batch_size=64, log_dir=None):
         model.train()
         # Construct a mini-batch
         batch = np.random.choice(train_inputs.shape[0], batch_size)
-        batch_inputs = augment_train(train_inputs[batch])
-        batch_labels = torch.as_tensor(train_labels[batch], dtype=torch.long)
+        batch_inputs = augment_train(train_inputs[batch]).cuda()
+        batch_labels = torch.as_tensor(train_labels[batch], dtype=torch.long).cuda()
 
         
         # zero the gradients (part of pytorch backprop)
@@ -92,8 +92,8 @@ def train(iterations, batch_size=64, log_dir=None):
         if iteration % 10 == 0:
             model.eval()
             batch = np.random.choice(val_inputs.shape[0], 256)
-            batch_inputs = augment_val(val_inputs[batch])
-            batch_labels = torch.as_tensor(val_labels[batch], dtype=torch.long)
+            batch_inputs = augment_val(val_inputs[batch]).cuda()
+            batch_labels = torch.as_tensor(val_labels[batch], dtype=torch.long).cuda()
             model_outputs = model(batch_inputs)
             v_acc_val = accuracy(model_outputs, batch_labels)
 
@@ -104,7 +104,11 @@ def train(iterations, batch_size=64, log_dir=None):
                 log.add_scalar('val/acc', v_acc_val, iteration)
 
     # Save the trained model
-    torch.save(model.state_dict(), os.path.join(dirname, 'convnet.th')) # Do NOT modify this line
+    model_dict = model.state_dict()
+    cpu_model_dict = {}
+    for x in model_dict:
+        cpu_model_dict[x] = model_dict[x].cpu()
+    torch.save(cpu_model_dict, os.path.join(dirname, 'convnet.th')) # Do NOT modify this line
 
 if __name__ == '__main__':
 
