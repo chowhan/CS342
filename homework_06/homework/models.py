@@ -113,7 +113,6 @@ class ConvNetModel(nn.Module):
         h4 = self.res_block4(x)
         x = self.conv5(h4 + x)
         x = self.pool(x)
-        print (x.size)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
         return x
