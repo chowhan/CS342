@@ -47,19 +47,52 @@ class ConvNetModel(nn.Module):
         '''
         Your code here
         '''
-        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.conv1 = nn.Conv2d(3, 32, 5)
         # You can wrap all the layers using the nn.Sequential which will make your
 
-        self.res_block = nn.Sequential(
-            nn.Conv2d(6, 6, 1, 1, 0),
+        self.res_block1 = nn.Sequential(
+            nn.Conv2d(32, 32, 1, 1, 0),
             nn.ReLU(True),
-            nn.Conv2d(6, 6, 3, 1, 1),
+            nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(True),
-            nn.Conv2d(6, 6, 1, 1, 0),
+            nn.Conv2d(32, 32, 1, 1, 0),
             nn.ReLU(True),
         )
 
-        self.conv2 = nn.Conv2d(6, 12, 5)
+        self.conv2 = nn.Conv2d(32, 64, 5)
+
+        self.res_block2 = nn.Sequential(
+            nn.Conv2d(64, 64, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(64, 64, 3, 1, 1),
+            nn.ReLU(True),
+            nn.Conv2d(64, 64, 1, 1, 0),
+            nn.ReLU(True),
+        )
+
+        self.conv3 = nn.Conv2d(64, 128, 5)
+
+        self.res_block3 = nn.Sequential(
+            nn.Conv2d(128, 128, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(128, 128, 3, 1, 1),
+            nn.ReLU(True),
+            nn.Conv2d(128, 128, 1, 1, 0),
+            nn.ReLU(True),
+        )
+
+        self.conv4 = nn.Conv2d(128, 256, 5)
+
+        self.res_block4 = nn.Sequential(
+            nn.Conv2d(256, 256, 1, 1, 0),
+            nn.ReLU(True),
+            nn.Conv2d(256, 256, 3, 1, 1),
+            nn.ReLU(True),
+            nn.Conv2d(256, 256, 1, 1, 0),
+            nn.ReLU(True),
+        )
+
+        self.conv5 = nn.Conv2d(256, 12, 5)
         self.pool = nn.MaxPool2d(2)
         self.linear = nn.Linear(9408, 6)
     
@@ -71,8 +104,14 @@ class ConvNetModel(nn.Module):
         '''
         
         x = self.conv1(x)
-        h = self.res_block(x)
-        x = self.conv2(h + x)
+        h1 = self.res_block1(x)
+        x = self.conv2(h1 + x)
+        h2 = self.res_block2(x)
+        x = self.conv3(h2 + x)
+        h3 = self.res_block3(x)
+        x = self.conv4(h3 + x)
+        h4 = self.res_block4(x)
+        x = self.conv5(h4 + x)
         x = self.pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
