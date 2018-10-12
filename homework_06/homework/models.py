@@ -106,7 +106,7 @@ class ConvNetModel(nn.Module):
 
         self.conv5 = nn.Conv2d(128, 12, 5)
         self.pool = nn.AvgPool2d(2)
-        self.linear = nn.Linear(23232, 64)
+        self.linear = nn.Linear(5508, 64)
         nn.init.constant_(self.linear.weight, 0)
         nn.init.constant_(self.linear.bias, 0)
     
@@ -126,7 +126,7 @@ class ConvNetModel(nn.Module):
         x = self.conv4(h3 + x)
         h4 = self.res_block4(x)
         x = self.conv5(h4 + x)
-        #x = self.pool(x)
+        x = self.pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear(x)
         return x

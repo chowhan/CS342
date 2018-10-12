@@ -18,6 +18,7 @@ def accuracy(outputs, labels):
     
 train_transforms = transforms.Compose([
     transforms.ToPILImage(),
+    transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.429, 0.505, 0.517]*255, std=[0.274, 0.283, 0.347]*255)
