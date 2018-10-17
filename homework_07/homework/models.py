@@ -15,7 +15,7 @@ class FConvNetModel(nn.Module):
 		'''
 		self.conv1 = nn.Conv2d(3, 32, 3, 2, 1)
 		self.conv2 = nn.Conv2d(32, 16, 3, 2)
-		self.upconv1 = nn.ConvTranspose2d(16, 8, 3, 2, 1)
+		self.upconv1 = nn.ConvTranspose2d(16, 8, 3, 2, 2)
 		self.upconv2 = nn.ConvTranspose2d(8, 6, 3, 2, 1)
 
 	def forward(self, x):
