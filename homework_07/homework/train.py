@@ -26,7 +26,7 @@ def iou(outputs, true_labels):
 	return J(CM(outputs, true_labels))
 
 train_class_loss_weights = np.array([
-	1.431, 181.871, 53.864, 17942.0, 194.459, 3.677
+	1.5741, 200.0581, 59.2504, 19736.2, 213.9049, 4.0447
 ])
 
 
