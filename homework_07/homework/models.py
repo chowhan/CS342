@@ -25,7 +25,7 @@ class FConvNetModel(nn.Module):
 		self.upconv1 = nn.ConvTranspose2d(128, 64, 5, 2, 1)
 		self.upconv2 = nn.ConvTranspose2d(64, 32, 5, 2, 1)
 		self.upconv3 = nn.ConvTranspose2d(32, 12, 5, 2, 1)
-		self.upconv3 = nn.ConvTranspose2d(12, 6, 4, 2)
+		self.upconv4 = nn.ConvTranspose2d(12, 6, 4, 2)
 
 		self.relu = nn.ReLU(True)
 
