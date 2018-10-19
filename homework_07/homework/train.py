@@ -26,12 +26,12 @@ def iou(outputs, true_labels):
 	return J(CM(outputs, true_labels))
 
 train_class_loss_weights = np.array([
-	0.014,
-	0.026,
-	2.0,
-	2.0,
-	2.0,
-	2.0
+	1.431,
+	181.871,
+	53.864,
+	17942.0,
+	194.459,
+	3.677
 ])
 
 
@@ -50,7 +50,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 	train_dataloader_iterator = cycle(iter(train_dataloader))
 	valid_dataloader_iterator = cycle(iter(valid_dataloader))
 
-	model = FConvNetModel()
+	model = FConvNetModel().cuda()
 
 	log = None
 	if log_dir is not None:
@@ -62,12 +62,12 @@ def train(max_iter, batch_size=64, log_dir=None):
 	#optimizer = optim.Adam(model.parameters(), lr = 1e-4, weight_decay=5e-4)
 	optimizer = optim.SGD(model.parameters(), lr = 5e-3, momentum=0.9, weight_decay=1e-4)
 	
-	loss = nn.CrossEntropyLoss(weight=torch.from_numpy(train_class_loss_weights).float())
+	loss = nn.CrossEntropyLoss(weight=torch.from_numpy(train_class_loss_weights).float().cuda())
 	
 	for t in range(max_iter):
 		train_batch = next(train_dataloader_iterator)
-		batch_inputs = train_batch['inp_image']
-		batch_labels = train_batch['lbl_image'].long()
+		batch_inputs = train_batch['inp_image'].cuda()
+		batch_labels = train_batch['lbl_image'].long().cuda()
 		
 		model.train()
 		
@@ -90,8 +90,8 @@ def train(max_iter, batch_size=64, log_dir=None):
 			model.eval()
 			
 			valid_batch = next(valid_dataloader_iterator)
-			batch_inputs = valid_batch['inp_image']
-			batch_labels = valid_batch['lbl_image'].long()
+			batch_inputs = valid_batch['inp_image'].cuda()
+			batch_labels = valid_batch['lbl_image'].long().cuda()
 
 			model_outputs = model(batch_inputs)
 			model_pred = torch.argmax(model_outputs, dim=1)
@@ -105,7 +105,11 @@ def train(max_iter, batch_size=64, log_dir=None):
 				log.add_scalar('val/iou', v_acc_val, t)
 
 	# Save the trained model
-	torch.save(model.state_dict(), os.path.join(dirname, 'fconvnet.th')) # Do NOT modify this line
+	model_dict = model.state_dict()
+	cpu_model_dict = {}
+	for x in model_dict:
+		cpu_model_dict[x] = model_dict[x].cpu()
+	torch.save(cpu_model_dict, os.path.join(dirname, 'fconvnet.th')) # Do NOT modify this line
 
 if __name__ == '__main__':
 

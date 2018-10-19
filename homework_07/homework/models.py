@@ -13,10 +13,21 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		self.conv1 = nn.Conv2d(3, 32, 3, 2)
-		self.conv2 = nn.Conv2d(32, 16, 3, 2)
-		self.upconv1 = nn.ConvTranspose2d(16, 8, 3, 2)
-		self.upconv2 = nn.ConvTranspose2d(8, 6, 3, 2, 1)
+		self.conv1 = nn.Conv2d(3, 9, 5, 2, 1)
+		self.bn1 = nn.BatchNorm2d(9)
+		self.conv2 = nn.Conv2d(9, 27, 5, 2, 1)
+		self.bn2 = nn.BatchNorm2d(27)
+		self.conv3 = nn.Conv2d(27, 81, 5, 2, 1)
+		self.bn3 = nn.BatchNorm2d(81)
+		self.conv4 = nn.Conv2d(81, 243, 4, 2, 1)
+		self.bn4 = nn.BatchNorm2d(243)
+
+		self.upconv1 = nn.ConvTranspose2d(243, 81, 5, 2, 1)
+		self.upconv2 = nn.ConvTranspose2d(81, 27, 5, 2, 1)
+		self.upconv3 = nn.ConvTranspose2d(27, 12, 5, 2, 1)
+		self.upconv3 = nn.ConvTranspose2d(12, 6, 4, 2)
+
+		self.relu = nn.ReLU(True)
 
 	def forward(self, x):
 		
@@ -24,7 +35,24 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 		c1 = self.conv1(x)
-		c2 = self.conv2(c1)
-		up1 = self.upconv1(c2)
-		up2 = self.upconv2(up1 + c1)
-		return up2
+		c1 = self.bn1(c1)
+		c1 = self.relu(c1)
+
+		c2 = self.conv1(c1)
+		c2 = self.bn1(c2)
+		c2 = self.relu(c2)
+
+		c3 = self.conv1(c2)
+		c3 = self.bn1(c3)
+		c3 = self.relu(c3)
+
+		c4 = self.conv1(c3)
+		c4 = self.bn1(c4)
+		c4 = self.relu(c4)
+
+		u1 = self.upconv1(c4)
+		u2 = self.upconv1(u1 + c3)
+		u3 = self.upconv1(u2 + c2)
+		u4 = self.upconv1(u3 + c1)
+
+		return u4
