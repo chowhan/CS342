@@ -22,9 +22,9 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		self.conv1 = nn.Conv2d(3, 9, 5, 2, 1)
-		self.bn1 = nn.BatchNorm2d(9)
-		self.conv2 = nn.Conv2d(9, 27, 5, 2, 1)
+		self.conv1 = nn.Conv2d(4, 32, 5, 2, 1)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv2 = nn.Conv2d(32, 27, 5, 2, 1)
 		self.bn2 = nn.BatchNorm2d(27)
 		self.conv3 = nn.Conv2d(27, 81, 5, 2, 1)
 		self.bn3 = nn.BatchNorm2d(81)

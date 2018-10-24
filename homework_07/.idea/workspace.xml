@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4cae79c-f377-47a5-9f21-ec4d90353a9a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/homework_08.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/grader/__main__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/grader/base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/grader/test_cases.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/bundle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/train.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../homework_08/homework/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework_06/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_06/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework_06/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_06/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework_08/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_08/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework_08/homework/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_08/homework/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,9 +87,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="950" />
-    <option name="width" value="979" />
-    <option name="height" value="1040" />
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
