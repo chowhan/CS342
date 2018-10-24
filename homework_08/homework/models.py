@@ -36,7 +36,10 @@ class FConvNetModel(nn.Module):
 		self.upconv3 = nn.ConvTranspose2d(64, 16, 5, 2, 1)
 		self.upconv4 = nn.ConvTranspose2d(16, 3, 4, 2)
 
-		self.relu = nn.ReLU(True)
+		nn.init.constant_(self.upconv4.weight, 0)
+		nn.init.constant_(self.upconv4.bias, 0)
+
+		self.relu = nn.LeakyReLU(inplace=True)
 
 
 	def forward(self, image, labels):
