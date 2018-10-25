@@ -62,8 +62,8 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		c0 = self.conv0(image)
-		hr_image = nn.functional.interpolate(c0, scale_factor=4, mode='linear')
+		print(image.size())
+		hr_image = nn.functional.interpolate(image, scale_factor=4, mode='linear')
 		labels = torch.unsqueeze(labels, 1).float()
 		x = torch.cat((hr_image, labels), 1)
 
