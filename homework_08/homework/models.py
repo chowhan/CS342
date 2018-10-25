@@ -22,15 +22,15 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		self.conv1 = nn.Conv2d(4, 32, 3, 2, 2)
+		self.conv1 = nn.Conv2d(4, 32, 3, 2, 2, 1)
 		self.bn1 = nn.BatchNorm2d(32)
-		self.conv2 = nn.Conv2d(32, 64, 3, 2, 2)
+		self.conv2 = nn.Conv2d(32, 64, 3, 2, 2, 1)
 		self.bn2 = nn.BatchNorm2d(64)
-		self.conv3 = nn.Conv2d(64, 128, 3, 2, 2)
+		self.conv3 = nn.Conv2d(64, 128, 3, 2, 2, 1)
 		self.bn3 = nn.BatchNorm2d(128)
-		self.conv4 = nn.Conv2d(128, 256, 3, 2, 2)
+		self.conv4 = nn.Conv2d(128, 256, 3, 2, 2, 1)
 		self.bn4 = nn.BatchNorm2d(256)
-		self.conv5 = nn.Conv2d(256, 512, 3, 2, 2)
+		self.conv5 = nn.Conv2d(256, 512, 3, 2, 2, 1)
 		self.bn5 = nn.BatchNorm2d(512)
 
 		self.upconv1 = nn.ConvTranspose2d(512, 256, 3, 2, 2, 1)
