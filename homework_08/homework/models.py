@@ -22,19 +22,19 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		self.conv1 = nn.Conv2d(4, 16, 5, 2, 1)
-		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 64, 5, 2, 1)
+		self.conv1 = nn.Conv2d(4, 32, 5, 2, 1)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv2 = nn.Conv2d(32, 64, 5, 2, 1)
 		self.bn2 = nn.BatchNorm2d(64)
-		self.conv3 = nn.Conv2d(64, 256, 5, 2, 1)
-		self.bn3 = nn.BatchNorm2d(256)
-		self.conv4 = nn.Conv2d(256, 1024, 4, 2, 1)
-		self.bn4 = nn.BatchNorm2d(1024)
+		self.conv3 = nn.Conv2d(64, 128, 5, 2, 1)
+		self.bn3 = nn.BatchNorm2d(128)
+		self.conv4 = nn.Conv2d(128, 256, 4, 2, 1)
+		self.bn4 = nn.BatchNorm2d(256)
 
-		self.upconv1 = nn.ConvTranspose2d(1024, 256, 5, 2, 1)
-		self.upconv2 = nn.ConvTranspose2d(256, 64, 5, 2, 1)
-		self.upconv3 = nn.ConvTranspose2d(64, 16, 5, 2, 1)
-		self.upconv4 = nn.ConvTranspose2d(16, 3, 4, 2)
+		self.upconv1 = nn.ConvTranspose2d(256, 128, 5, 2, 1)
+		self.upconv2 = nn.ConvTranspose2d(128, 64, 5, 2, 1)
+		self.upconv3 = nn.ConvTranspose2d(64, 32, 5, 2, 1)
+		self.upconv4 = nn.ConvTranspose2d(32, 3, 4, 2)
 
 		nn.init.constant_(self.upconv4.weight, 0)
 		nn.init.constant_(self.upconv4.bias, 0)
