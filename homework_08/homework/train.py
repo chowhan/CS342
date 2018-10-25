@@ -33,7 +33,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 	Load the training data
 	"""
 
-	train_dataloader = load('train', num_workers=4, crop=128)
+	train_dataloader = load('train', num_workers=4, crop=64)
 	valid_dataloader = load('valid', num_workers=4)
 	train_dataloader_iterator = cycle(iter(train_dataloader))
 	valid_dataloader_iterator = cycle(iter(valid_dataloader))
