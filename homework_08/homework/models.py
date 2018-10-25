@@ -23,15 +23,14 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(4, 32, 5, 2, 2)
-		self.bn1 = nn.BatchNorm2d(32)
-		self.conv2 = nn.Conv2d(32, 128, 5, 2, 2)
-		self.bn2 = nn.BatchNorm2d(128)
+		self.conv1 = nn.Conv2d(4, 512, 5, 2, 2)
+		self.bn1 = nn.BatchNorm2d(512)
+		self.conv2 = nn.Conv2d(512, 1024, 5, 2, 2)
+		self.bn2 = nn.BatchNorm2d(1024)
 
-		self.conv5 = nn.Conv2d(3, 128, 5, 1, 2)
-
-		self.upconv4 = nn.Conv2d(128, 32, 5, 2, 2)
-		self.upconv5 = nn.Conv2d(32, 3, 5, 2, 2)
+		self.conv5 = nn.Conv2d(3, 1024, 5, 1, 2)
+		self.upconv4 = nn.ConvTranspose2d(1024, 512, 5, 2, 2, 1)
+		self.upconv5 = nn.ConvTranspose2d(512, 3, 5, 2, 2, 1)
 
 		nn.init.constant_(self.upconv4.weight, 0)
 		nn.init.constant_(self.upconv4.bias, 0)
@@ -44,7 +43,7 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		hr_image = nn.functional.interpolate(image, scale_factor=4, mode='nearest')
+		hr_image = nn.functional.interpolate(image, scale_factor=4, mode='linear')
 		labels = torch.unsqueeze(labels, 1).float()
 		x = torch.cat((hr_image, labels), 1)
 
@@ -60,8 +59,7 @@ class FConvNetModel(nn.Module):
 
 		c5 = self.conv5(image)
 
-		u3 = self.upconv4(c2 + c5)
-		print(u3.size(), c1.size())
-		u4 = self.upconv5(u3)
+		u3 = self.upconv4(c5 + c2)
+		u4 = self.upconv5(u3 + c1)
 
 		return u4
