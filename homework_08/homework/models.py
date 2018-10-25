@@ -70,8 +70,8 @@ class FConvNetModel(nn.Module):
 		c4 = self.bn4(c4)
 		c4 = self.relu(c4)
 
-		c5 = self.conv4(c4)
-		c5 = self.bn4(c5)
+		c5 = self.conv5(c4)
+		c5 = self.bn5(c5)
 		c5 = self.relu(c5)
 
 		u1 = self.upconv1(c5)
