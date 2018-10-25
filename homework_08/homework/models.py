@@ -23,7 +23,7 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(4, 32, 5, 2, 2)
+		self.conv1 = nn.Conv2d(1, 32, 5, 2, 2)
 		self.bn1 = nn.BatchNorm2d(32)
 		self.conv2 = nn.Conv2d(32, 64, 5, 2, 2)
 		self.bn2 = nn.BatchNorm2d(64)
@@ -49,7 +49,7 @@ class FConvNetModel(nn.Module):
 
 		# print(labels.size())
 
-		c1 = self.conv1(x)
+		c1 = self.conv1(labels)
 		c1 = self.bn1(c1)
 		c1 = self.relu(c1)
 
