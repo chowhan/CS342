@@ -104,9 +104,9 @@ class FConvNetModel(nn.Module):
 		c5 = self.conv5(image)
 
 		u1 = self.upconv2(c44 + c4)
-		u2 = self.upconv3(u1)
-		u3 = self.upconv4(u2)
-		u4 = self.upconv5(u3)
+		u2 = self.upconv3(u1 + c3 + c33)
+		u3 = self.upconv4(u2 + c2)
+		u4 = self.upconv5(u3 + c1)
 		# u5 = self.upconv5(u4 + c1)
 
 		return u4
