@@ -82,21 +82,21 @@ class FConvNetModel(nn.Module):
 		#c4 = self.bn4(c4)
 		c4 = self.relu(c4)
 
-		c11 = self.conv1(x)
+		c11 = self.conv11(image)
 		#c1 = self.bn1(c1)
-		c11 = self.relu(c1)
+		c11 = self.relu(c11)
 
-		c22 = self.conv2(c1)
+		c22 = self.conv22(c11)
 		#c2 = self.bn2(c2)
-		c22 = self.relu(c2)
+		c22 = self.relu(c22)
 
-		c33 = self.conv3(c2)
+		c33 = self.conv33(c22)
 		#c3 = self.bn3(c3)
-		c33 = self.relu(c3)
+		c33 = self.relu(c33)
 
-		c44 = self.conv4(c3)
+		c44 = self.conv44(c33)
 		#c4 = self.bn4(c4)
-		c44 = self.relu(c4)
+		c44 = self.relu(c44)
 
 		# c5 = self.conv5(c4)
 		# c5 = self.bn5(c5)
