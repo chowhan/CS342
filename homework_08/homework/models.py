@@ -28,7 +28,7 @@ class FConvNetModel(nn.Module):
 		self.conv2 = nn.Conv2d(32, 64, 5, 2, 2)
 		self.bn2 = nn.BatchNorm2d(64)
 
-		self.conv5 = nn.Conv2d(3, 32, 5, 2, 2)
+		self.conv5 = nn.Conv2d(3, 64, 5, 1, 2)
 		self.upconv4 = nn.ConvTranspose2d(64, 32, 5, 2, 2, 1)
 		self.upconv5 = nn.ConvTranspose2d(32, 3, 5, 2, 2, 1)
 
