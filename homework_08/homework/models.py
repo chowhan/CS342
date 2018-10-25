@@ -78,6 +78,7 @@ class FConvNetModel(nn.Module):
 		c5 = self.conv5(image)
 
 		print(c5.size())
+		print(c4.size())
 
 		u1 = self.upconv2(c5 + c4)
 		u2 = self.upconv3(u1 + c3)
