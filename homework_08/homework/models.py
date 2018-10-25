@@ -54,26 +54,30 @@ class FConvNetModel(nn.Module):
 		labels = torch.unsqueeze(labels, 1).float()
 		x = torch.cat((hr_image, labels), 1)
 
+		print(labels.size())
+
 		c1 = self.conv1(x)
-		c1 = self.bn1(c1)
+		#c1 = self.bn1(c1)
 		c1 = self.relu(c1)
 
 		c2 = self.conv2(c1)
-		c2 = self.bn2(c2)
+		#c2 = self.bn2(c2)
 		c2 = self.relu(c2)
 
 		c3 = self.conv3(c2)
-		c3 = self.bn3(c3)
+		#c3 = self.bn3(c3)
 		c3 = self.relu(c3)
 
 		c4 = self.conv4(c3)
-		c4 = self.bn4(c4)
+		#c4 = self.bn4(c4)
 		c4 = self.relu(c4)
 
 		# c5 = self.conv5(c4)
 		# c5 = self.bn5(c5)
 		# c5 = self.relu(c5)
 		c5 = self.conv5(image)
+
+		print(c5.size())
 
 		u1 = self.upconv2(c5 + c4)
 		u2 = self.upconv3(u1 + c3)
