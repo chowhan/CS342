@@ -106,13 +106,12 @@ class FConvNetModel(nn.Module):
 
 
 		u1 = self.upconv2(c44 + c4)
+		print(u1.size())
+		print(c3.size())
+		print(c33.size())
 		u2 = self.upconv3(u1 + c3 + c33)
 		u3 = self.upconv4(u2 + c2 + c22)
 		u4 = self.upconv5(u3 + c1 + c11)
 		# u5 = self.upconv5(u4 + c1)
-
-		print(u1.size())
-		print(c3.size())
-		print(c33.size())
 
 		return u4
