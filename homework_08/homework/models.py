@@ -22,6 +22,8 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
+		self.conv0 = nn.Conv2d(4, 3, 5, 2, 2)
+
 		self.conv1 = nn.Conv2d(4, 32, 5, 2, 2)
 		self.bn1 = nn.BatchNorm2d(32)
 		self.conv2 = nn.Conv2d(32, 128, 5, 2, 2)
@@ -60,7 +62,8 @@ class FConvNetModel(nn.Module):
 		'''
 		Your code here
 		'''
-		hr_image = nn.functional.interpolate(image, scale_factor=4, mode='linear')
+		c0 = self.conv0(image)
+		hr_image = nn.functional.interpolate(c0, scale_factor=4, mode='linear')
 		labels = torch.unsqueeze(labels, 1).float()
 		x = torch.cat((hr_image, labels), 1)
 
