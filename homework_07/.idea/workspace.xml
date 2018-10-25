@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4cae79c-f377-47a5-9f21-ec4d90353a9a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../homework_08/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_08/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../homework_08/homework/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_08/homework/models.py" afterDir="false" />
     </list>
@@ -86,9 +85,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="width" value="978" />
-    <option name="height" value="1039" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
