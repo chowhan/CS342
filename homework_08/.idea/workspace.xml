@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9952900-7c6a-4789-9614-922a3dae78ce" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../homework_07/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework_07/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homework/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/homework/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,12 +31,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="624" />
+          <entry key="py" value="626" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="624" />
+          <entry key="Python" value="626" />
         </counts>
       </usages-collector>
     </session>
