@@ -60,7 +60,7 @@ class FConvNetModel(nn.Module):
 		#c2 = self.bn2(c2)
 		c2 = self.relu(c2)
 
-		c3 = self.conv2(c2)
+		c3 = self.conv3(c2)
 		#c2 = self.bn2(c2)
 		c3 = self.relu(c3)
 
