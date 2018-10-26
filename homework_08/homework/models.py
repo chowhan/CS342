@@ -23,7 +23,7 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(9, 64, 5, 2, 2)
+		self.conv1 = nn.Conv2d(1, 64, 5, 2, 2)
 		self.conv2 = nn.Conv2d(64, 128, 5, 2, 2)
 
 		self.upconv2 = nn.ConvTranspose2d(131, 64, 5, 2, 2, 1)
@@ -49,7 +49,7 @@ class FConvNetModel(nn.Module):
 
 		# print(labels.size())
 		#x = one_hot(labels)
-		c1 = self.conv1(x)
+		c1 = self.conv1(labels)
 		#c1 = self.bn1(c1)
 		c1 = self.relu(c1)
 
