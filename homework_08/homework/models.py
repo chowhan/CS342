@@ -34,8 +34,8 @@ class FConvNetModel(nn.Module):
 		self.upconv3 = nn.ConvTranspose2d(32, 3, 5, 2, 2, 1)
 		self.bn3 = nn.BatchNorm2d(3)
 
-		nn.init.constant_(self.upconv4.weight, 0)
-		nn.init.constant_(self.upconv4.bias, 0)
+		nn.init.constant_(self.upconv3.weight, 0)
+		nn.init.constant_(self.upconv3.bias, 0)
 
 		self.relu = nn.LeakyReLU(inplace=True)
 
