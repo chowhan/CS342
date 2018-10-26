@@ -64,7 +64,7 @@ class FConvNetModel(nn.Module):
 		u2 = self.relu(u2)
 		u3 = self.upconv3(u2 + c1)
 		u3 = self.bn3(u3)
-		u3 = self.relu(u3)
+		#u3 = self.relu(u3)
 
 
 		return u3
