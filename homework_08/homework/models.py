@@ -49,7 +49,7 @@ class FConvNetModel(nn.Module):
 
 		# print(labels.size())
 		#x = one_hot(labels)
-		c1 = self.conv1(labels)
+		c1 = self.conv1(x)
 		#c1 = self.bn1(c1)
 		c1 = self.relu(c1)
 
@@ -63,7 +63,8 @@ class FConvNetModel(nn.Module):
 		u2 = self.bn2(u2)
 		u2 = self.relu(u2)
 		u3 = self.upconv3(u2 + c1)
-		u3 = self.relu(u3)
 		u3 = self.bn3(u3)
+		u3 = self.relu(u3)
+
 
 		return u3
