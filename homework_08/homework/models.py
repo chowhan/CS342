@@ -50,11 +50,11 @@ class FConvNetModel(nn.Module):
 		# print(labels.size())
 		#x = one_hot(labels)
 		c1 = self.conv1(x)
-		c1 = self.bn1(c1)
+		c1 = self.bn2(c1)
 		c1 = self.relu(c1)
 
 		c2 = self.conv2(c1)
-		c2 = self.bn2(c2)
+		c2 = self.bn3(c2)
 		c2 = self.relu(c2)
 
 		c2 = torch.cat((image, c2), 1)
