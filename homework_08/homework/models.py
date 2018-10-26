@@ -28,7 +28,7 @@ class FConvNetModel(nn.Module):
 		self.conv2 = nn.Conv2d(64, 128, 5, 2, 2)
 		self.bn3 = nn.BatchNorm2d(128)
 
-		self.upconv2 = nn.ConvTranspose2d(131, 64, 5, 2, 2, 1)
+		self.upconv2 = nn.ConvTranspose2d(128, 64, 5, 2, 2, 1)
 		self.bn4 = nn.BatchNorm2d(64)
 		self.upconv3 = nn.ConvTranspose2d(64, 3, 5, 2, 2, 1)
 
@@ -52,13 +52,13 @@ class FConvNetModel(nn.Module):
 		#x = one_hot(labels)
 		c1 = self.conv1(x)
 		c1 = self.bn2(c1)
-		#c1 = self.relu(c1)
+		c1 = self.relu(c1)
 
 		c2 = self.conv2(c1)
 		c2 = self.bn3(c2)
-		#c2 = self.relu(c2)
+		c2 = self.relu(c2)
 
-		c2 = torch.cat((image, c2), 1)
+		#c2 = torch.cat((image, c2), 1)
 
 		u2 = self.upconv2(c2)
 		#u2 = self.bn4(u2)
