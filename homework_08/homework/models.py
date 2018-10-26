@@ -23,15 +23,15 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(9, 32, 5, 2, 2)
-		self.conv2 = nn.Conv2d(32, 64, 5, 2, 2)
-		self.conv3 = nn.Conv2d(64, 128, 5, 2, 2)
+		self.conv1 = nn.Conv2d(9, 64, 9, 2, 4)
+		self.conv2 = nn.Conv2d(64, 128, 9, 2, 4)
+		self.conv3 = nn.Conv2d(128, 256, 9, 2, 4)
 
-		self.upconv1 = nn.ConvTranspose2d(128, 64, 5, 2, 2, 1)
-		self.bn1 = nn.BatchNorm2d(64)
-		self.upconv2 = nn.ConvTranspose2d(64, 32, 5, 2, 2, 1)
-		self.bn2 = nn.BatchNorm2d(32)
-		self.upconv3 = nn.ConvTranspose2d(32, 3, 5, 2, 2, 1)
+		self.upconv1 = nn.ConvTranspose2d(256, 128, 9, 2, 4, 1)
+		self.bn1 = nn.BatchNorm2d(128)
+		self.upconv2 = nn.ConvTranspose2d(128, 64, 9, 2, 4, 1)
+		self.bn2 = nn.BatchNorm2d(64)
+		self.upconv3 = nn.ConvTranspose2d(64, 3, 9, 2, 4, 1)
 		self.bn3 = nn.BatchNorm2d(3)
 
 		nn.init.constant_(self.upconv3.weight, 0)
