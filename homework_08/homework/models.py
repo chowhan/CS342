@@ -23,15 +23,15 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(9, 16, 9, 2, 4)
-		self.conv2 = nn.Conv2d(16, 32, 9, 2, 4)
-		self.conv3 = nn.Conv2d(32, 64, 9, 2, 4)
+		self.conv1 = nn.Conv2d(9, 32, 7, 2, 3)
+		self.conv2 = nn.Conv2d(32, 64, 7, 2, 3)
+		self.conv3 = nn.Conv2d(64, 128, 7, 2, 3)
 
-		self.upconv1 = nn.ConvTranspose2d(64, 32, 9, 2, 4, 1)
-		self.bn1 = nn.BatchNorm2d(32)
-		self.upconv2 = nn.ConvTranspose2d(32, 16, 9, 2, 4, 1)
-		self.bn2 = nn.BatchNorm2d(16)
-		self.upconv3 = nn.ConvTranspose2d(16, 3, 9, 2, 4, 1)
+		self.upconv1 = nn.ConvTranspose2d(128, 64, 7, 2, 3, 1)
+		self.bn1 = nn.BatchNorm2d(64)
+		self.upconv2 = nn.ConvTranspose2d(64, 32, 7, 2, 3, 1)
+		self.bn2 = nn.BatchNorm2d(32)
+		self.upconv3 = nn.ConvTranspose2d(32, 3, 7, 2, 3, 1)
 		self.bn3 = nn.BatchNorm2d(3)
 
 		nn.init.constant_(self.upconv3.weight, 0)
@@ -64,7 +64,7 @@ class FConvNetModel(nn.Module):
 		#c2 = self.bn2(c2)
 		c3 = self.relu(c3)
 
-		c3 = torch.cat((image, c3), 1)
+		#c3 = torch.cat((image, c3), 1)
 
 		u1 = self.upconv1(c3)
 		u1 = self.bn1(u1)
