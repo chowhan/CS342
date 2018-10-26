@@ -24,9 +24,9 @@ class FConvNetModel(nn.Module):
 		'''
 
 		self.conv1 = nn.Conv2d(9, 64, 5, 2, 2)
-		self.bn1 = nn.BatchNorm2d(32)
+		self.bn1 = nn.BatchNorm2d(64)
 		self.conv2 = nn.Conv2d(64, 128, 5, 2, 2)
-		self.bn2 = nn.BatchNorm2d(64)
+		self.bn2 = nn.BatchNorm2d(128)
 
 		self.conv5 = nn.Conv2d(3, 131, 5, 1, 2)
 		self.upconv4 = nn.ConvTranspose2d(131, 64, 5, 2, 2, 1)
