@@ -23,7 +23,7 @@ class FConvNetModel(nn.Module):
 		Your code here
 		'''
 
-		self.conv1 = nn.Conv2d(1, 64, 5, 2, 2)
+		self.conv1 = nn.Conv2d(6, 64, 5, 2, 2)
 		self.conv2 = nn.Conv2d(64, 128, 5, 2, 2)
 
 		self.upconv2 = nn.ConvTranspose2d(131, 64, 5, 2, 2, 1)
