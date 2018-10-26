@@ -25,12 +25,12 @@ class FConvNetModel(nn.Module):
 
 		self.conv1 = nn.Conv2d(9, 32, 5, 2, 2)
 		self.conv2 = nn.Conv2d(32, 64, 5, 2, 2)
-		self.bn2 = nn.BatchNorm2d(128)
 
 		self.conv5 = nn.Conv2d(3, 131, 5, 1, 2)
 		self.upconv4 = nn.ConvTranspose2d(67, 32, 5, 2, 2, 1)
 		self.bn1 = nn.BatchNorm2d(32)
 		self.upconv5 = nn.ConvTranspose2d(32, 3, 5, 2, 2, 1)
+		self.bn2 = nn.BatchNorm2d(3)
 
 		nn.init.constant_(self.upconv4.weight, 0)
 		nn.init.constant_(self.upconv4.bias, 0)
@@ -62,6 +62,9 @@ class FConvNetModel(nn.Module):
 
 		u3 = self.upconv4(c2)
 		u3 = self.bn1(u3)
+		u3 = self.relu(u3)
 		u4 = self.upconv5(u3 + c1)
+		u4 = self.bn2(u4)
+		u4 = self.relu(u4)
 
 		return u4
