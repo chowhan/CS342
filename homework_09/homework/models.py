@@ -37,8 +37,8 @@ class SeqModel(nn.Module):
 	def __init__(self):
 		
 		super().__init__()
-		self.hsize = 20
-		self.rnn = nn.LSTM(6, self.hsize, 1)
+		self.hsize = 32
+		self.rnn = nn.LSTM(6, self.hsize, 2)
 		self.l1 = nn.Linear(self.hsize, 6)
 
 	def forward(self, input, hidden=None, from_test=False):
