@@ -39,9 +39,7 @@ class SeqModel(nn.Module):
 		super().__init__()
 		self.hsize = 20
 		self.rnn = nn.LSTM(6, self.hsize, 1)
-		self.l1 = nn.Linear(self.hsize, 5000)
-		self.rel = nn.ReLU()
-		self.l2 = nn.Linear(5000, 6)
+		self.l1 = nn.Linear(self.hsize, 6)
 
 	def forward(self, input, hidden=None, from_test=False):
 		"""
@@ -51,14 +49,12 @@ class SeqModel(nn.Module):
 		"""
 		inp = input.permute(2, 0, 1)
 		out, hidden = self.rnn(inp, hidden)
-		out = self.rel(self.l1(out))
-		out = self.l2(out)
+		out = self.l1(out)
 		out = out.permute(1, 2, 0)
-		#print(out)
-		#if from_test:
-		return out
-		#else:
-			#return out, hidden
+		if from_test:
+			return out, hidden
+		else:
+			return out
 
 	def predictor(self):
 		return SeqPredictor(self)
