@@ -54,6 +54,7 @@ class Grader(base.Grader):
 		
 		loss_vals = []
 		for k in range(len(data)):
+			print(k)
 			seq = torch.as_tensor(data[k]).float()
 			pred = self.model.predictor()
 			
