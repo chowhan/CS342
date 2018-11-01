@@ -51,10 +51,13 @@ class SeqModel(nn.Module):
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty). Shape: batch_size x 6 x sequence_length
 		"""
 		inp = input.permute(2, 0, 1)
+		if self.iter == 2:
+			self.book1 = self.book2
+			out, self.book2 = self.rnn(inp, self.book2)
 		if self.iter % 2 == 0:
-			out , self.book1 = self.rnn(inp, self.book1)
+			out, self.book1 = self.rnn(inp, self.book1)
 		else:
-			out , self.book2 = self.rnn(inp, self.book2)
+			out, self.book2 = self.rnn(inp, self.book2)
 
 		#out = (out.permute(1, 2, 0))
 		out = out.contiguous().view(input.size()[0], -1)
