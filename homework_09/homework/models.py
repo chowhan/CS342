@@ -25,10 +25,9 @@ class SeqPredictor:
 		@param input: A single input of shape (6,) indicator values (float: 0 or 1)
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty)
 		"""
-		input = input.view(0, 6, 1)
-		print(input)
+		input = input.view(1, 6, 1)
 		output, self.hidden = self.model(input, self.hidden, True)
-		pass
+		return output[0,:,-1]
 
 class SeqModel(nn.Module):
 
@@ -52,7 +51,6 @@ class SeqModel(nn.Module):
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty). Shape: batch_size x 6 x sequence_length
 		"""
 		inp = input.permute(0, 2, 1)
-
 		out, hidden = self.rnn(inp, hidden)
 		#out = (out.permute(1, 2, 0))
 		#out = out.contiguous().view(input.size()[0], -1)
@@ -60,10 +58,10 @@ class SeqModel(nn.Module):
 		out = self.l2(out)
 		out = out.permute(0, 2, 1)
 		#out = out.view(*(input.size()))
-		if from_test == True:
-			return out, hidden
-		else:
+		if from_test:
 			return out
+		else:
+			return out, hidden
 
 	def predictor(self):
 		return SeqPredictor(self)

@@ -78,7 +78,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 			batch_inputs = batch[:,:,:-1]
 			batch_outputs = batch[:,:,1:]
 			
-			model_outputs = model(batch_inputs, None, None)
+			model_outputs = model(batch_inputs, hidden=None, from_test=False)
 			
 			v_loss_val = loss(model_outputs, batch_outputs)*6
 
