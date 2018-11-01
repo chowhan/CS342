@@ -72,7 +72,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 		optimizer.step()
 	
 		if t % 10 == 0:
-			model.eval()
+			#model.eval()
 			
 			valid_batch = next(valid_dataloader_iterator).cuda().float()
 			batch_inputs = batch[:,:,:-1]
