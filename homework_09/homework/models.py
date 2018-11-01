@@ -42,7 +42,6 @@ class SeqModel(nn.Module):
 		self.l1 = nn.Linear(self.hsize, 5000)
 		self.rel = nn.ReLU()
 		self.l2 = nn.Linear(5000, 6)
-		self.book2 = None
 
 	def forward(self, input, hidden=None, from_test=False):
 		"""
@@ -50,7 +49,7 @@ class SeqModel(nn.Module):
 		@param input: A sequence of input actions (batch_size x 6 x sequence_length)
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty). Shape: batch_size x 6 x sequence_length
 		"""
-		inp = input.permute(0, 2, 1)
+		inp = input.permute(2, 0, 1)
 		out, hidden = self.rnn(inp, hidden)
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
