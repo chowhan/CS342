@@ -51,7 +51,7 @@ class SeqModel(nn.Module):
 		inp = input.permute(2, 0, 1)
 		out , self.book = self.rnn(inp, self.book)
 		#out = (out.permute(1, 2, 0))
-		#out = out.contiguous().view(input.size()[0], -1)
+		out = out.contiguous().view(input.size()[0], -1)
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
 		out = out.view(*(input.size()))
