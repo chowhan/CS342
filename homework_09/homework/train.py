@@ -33,7 +33,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 	train_dataloader_iterator = cycle(train_dataloader)
 	valid_dataloader_iterator = cycle(valid_dataloader)
 
-	model = SeqModel()#.cuda()
+	model = SeqModel().cuda()
 
 	print ("Num of parameters: ", sum([p.numel() for p in model.parameters() if p.requires_grad]))
 
@@ -50,7 +50,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 	loss = nn.BCEWithLogitsLoss()
 	
 	for t in range(max_iter):
-		batch = next(train_dataloader_iterator).float() # .cuda().float()
+		batch = next(train_dataloader_iterator).cuda().float()
 		batch_inputs = batch[:,:,:-1]
 		batch_outputs = batch[:,:,1:]
 
@@ -74,7 +74,7 @@ def train(max_iter, batch_size=64, log_dir=None):
 		if t % 10 == 0:
 			model.eval()
 			
-			valid_batch = next(valid_dataloader_iterator).float() # .cuda().float()
+			valid_batch = next(valid_dataloader_iterator).cuda().float()
 			batch_inputs = batch[:,:,:-1]
 			batch_outputs = batch[:,:,1:]
 			
