@@ -37,12 +37,10 @@ class SeqModel(nn.Module):
 		super().__init__()
 		self.hsize = 20
 		self.rnn = nn.LSTM(6, self.hsize, 1)
-		self.l1 = nn.Linear(self.hsize * 99, 5000)
+		self.l1 = nn.Linear(self.hsize, 5000)
 		self.rel = nn.ReLU()
-		self.l2 = nn.Linear(5000, 6*99)
-		self.book1 = None
+		self.l2 = nn.Linear(5000, 6)
 		self.book2 = None
-		self.iter = 0
 
 	def forward(self, input):
 		"""
@@ -50,21 +48,15 @@ class SeqModel(nn.Module):
 		@param input: A sequence of input actions (batch_size x 6 x sequence_length)
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty). Shape: batch_size x 6 x sequence_length
 		"""
-		inp = input.permute(2, 0, 1)
-		if self.iter == 2:
-			self.book1 = self.book2
-			out, self.book2 = self.rnn(inp, self.book2)
-		if self.iter % 2 == 0:
-			out, self.book1 = self.rnn(inp, self.book1)
-		else:
-			out, self.book2 = self.rnn(inp, self.book2)
+		inp = input.permute(0, 2, 1)
 
+		out, hidden = self.rnn(inp, None)
 		#out = (out.permute(1, 2, 0))
-		out = out.contiguous().view(input.size()[0], -1)
+		#out = out.contiguous().view(input.size()[0], -1)
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
-		out = out.view(*(input.size()))
-		self.iter += 1
+		out = out.permute(0, 2, 1)
+		#out = out.view(*(input.size()))
 		return out
 
 	def predictor(self):
