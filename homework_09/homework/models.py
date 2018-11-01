@@ -54,11 +54,11 @@ class SeqModel(nn.Module):
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
 		out = out.permute(1, 2, 0)
-		print(out)
-		if from_test:
-			return out
-		else:
-			return out, hidden
+		#print(out)
+		#if from_test:
+		return out
+		#else:
+			#return out, hidden
 
 	def predictor(self):
 		return SeqPredictor(self)
