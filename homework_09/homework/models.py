@@ -52,12 +52,9 @@ class SeqModel(nn.Module):
 		"""
 		inp = input.permute(0, 2, 1)
 		out, hidden = self.rnn(inp, hidden)
-		#out = (out.permute(1, 2, 0))
-		#out = out.contiguous().view(input.size()[0], -1)
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
-		out = out.permute(0, 2, 1)
-		#out = out.view(*(input.size()))
+		out = out.permute(1, 2, 0)
 		if from_test:
 			return out
 		else:
