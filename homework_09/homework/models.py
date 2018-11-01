@@ -44,7 +44,7 @@ class SeqModel(nn.Module):
 		self.l2 = nn.Linear(5000, 6)
 		self.book2 = None
 
-	def forward(self, input, hidden, from_test):
+	def forward(self, input, hidden=None, from_test=False):
 		"""
 		IMPORTANT: Do not change the function signature of the forward() function unless the grader won't work.
 		@param input: A sequence of input actions (batch_size x 6 x sequence_length)
