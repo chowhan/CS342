@@ -18,13 +18,16 @@ class SeqPredictor:
 
 	def __init__(self, model):
 		self.model = model
+		self.hidden = None
 
 	def __call__(self, input):
 		"""
 		@param input: A single input of shape (6,) indicator values (float: 0 or 1)
 		@return The logit of a binary distribution of output actions (6 floating point values between -infty .. infty)
 		"""
-
+		input = input.view(0, 6, 1)
+		print(input)
+		output, self.hidden = self.model(input, self.hidden, True)
 		pass
 
 class SeqModel(nn.Module):
@@ -42,7 +45,7 @@ class SeqModel(nn.Module):
 		self.l2 = nn.Linear(5000, 6)
 		self.book2 = None
 
-	def forward(self, input):
+	def forward(self, input, hidden, from_test):
 		"""
 		IMPORTANT: Do not change the function signature of the forward() function unless the grader won't work.
 		@param input: A sequence of input actions (batch_size x 6 x sequence_length)
@@ -50,14 +53,17 @@ class SeqModel(nn.Module):
 		"""
 		inp = input.permute(0, 2, 1)
 
-		out, hidden = self.rnn(inp, None)
+		out, hidden = self.rnn(inp, hidden)
 		#out = (out.permute(1, 2, 0))
 		#out = out.contiguous().view(input.size()[0], -1)
 		out = self.rel(self.l1(out))
 		out = self.l2(out)
 		out = out.permute(0, 2, 1)
 		#out = out.view(*(input.size()))
-		return out
+		if from_test == True:
+			return out, hidden
+		else:
+			return out
 
 	def predictor(self):
 		return SeqPredictor(self)
