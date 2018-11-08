@@ -48,9 +48,13 @@ class Model(nn.Module):
 
 		ks = 5
 		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
+		self.bn1 = nn.BatchNorm2d(16)
 		self.conv2 = nn.Conv2d(16, 64 , ks, 2)
+		self.bn1 = nn.BatchNorm2d(64)
 		self.conv3 = nn.Conv2d(64, 256 , ks, 2)
+		self.bn1 = nn.BatchNorm2d(256)
 		self.conv4 = nn.Conv2d(256, 512, ks, 2)
+		self.bn1 = nn.BatchNorm2d(512)
 
 		self.lstm_layer = nn.RNN(
 				input_size = 512,
