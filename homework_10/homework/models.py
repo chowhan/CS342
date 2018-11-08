@@ -46,18 +46,18 @@ class Model(nn.Module):
 		# The Number of Hidden Dimensions in the LSTM Layers
 		self.hidden_dim = 16
 
-		ks = 5
+		ks = 4
 		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
 		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 64 , ks, 2)
+		self.conv2 = nn.Conv2d(16, 32, ks, 2)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv3 = nn.Conv2d(32, 64 , ks, 2)
 		self.bn1 = nn.BatchNorm2d(64)
-		self.conv3 = nn.Conv2d(64, 256 , ks, 2)
-		self.bn1 = nn.BatchNorm2d(256)
-		self.conv4 = nn.Conv2d(256, 512, ks, 2)
-		self.bn1 = nn.BatchNorm2d(512)
+		self.conv4 = nn.Conv2d(64, 128, ks, 2)
+		self.bn1 = nn.BatchNorm2d(128)
 
 		self.lstm_layer = nn.RNN(
-				input_size = 512,
+				input_size = 128,
 				hidden_size = self.hidden_dim,
 				num_layers = self.num_lstm_layers,
 				bidirectional = self.isBidirectional,
