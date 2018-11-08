@@ -110,7 +110,7 @@ class Model(nn.Module):
 		x = x.permute(1, 0, 2)
 		# dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
 		# dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
-		x = self.dropout_prob(self.linear2(x))
+		x = self.dropout_layer(self.linear2(x))
 
 		out = x
 		if test:
