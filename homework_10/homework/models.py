@@ -32,7 +32,7 @@ class Model(nn.Module):
 		self.dropout_prob = 0.2
 
 		# Option to use a stacked LSTM
-		self.num_lstm_layers = 1
+		self.num_lstm_layers = 2
 
 		# Option to Use a bidirectional LSTM
 
@@ -48,16 +48,17 @@ class Model(nn.Module):
 
 		ks = 5
 		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
-		self.conv2 = nn.Conv2d(16, 32 , ks, 2)
-		self.conv3 = nn.Conv2d(32, 64 , ks, 2)
-		self.conv4 = nn.Conv2d(64, 256, ks, 2)
+		self.conv2 = nn.Conv2d(16, 64 , ks, 2)
+		self.conv3 = nn.Conv2d(64, 256 , ks, 2)
+		self.conv4 = nn.Conv2d(256, 512, ks, 2)
 
 		self.lstm_layer = nn.LSTM(
 				input_size = 256,
 				hidden_size = self.hidden_dim,
 				num_layers = self.num_lstm_layers,
 				bidirectional = self.isBidirectional,
-				batch_first = True
+				batch_first = True,
+				dropout = 0.2
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
