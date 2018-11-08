@@ -39,12 +39,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="80" />
+          <entry key="py" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="80" />
+          <entry key="Python" value="88" />
         </counts>
       </usages-collector>
     </session>
@@ -54,11 +54,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/homework/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="46" column="28" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+            <state relative-caret-position="321">
+              <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <marker date="1541636816606" expanded="true" signature="2015:2018" ph="..." />
+                <marker date="1541636903745" expanded="true" signature="2015:2018" ph="..." />
               </folding>
             </state>
           </provider>
@@ -151,11 +151,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/homework/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="46" column="28" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+        <state relative-caret-position="321">
+          <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <marker date="1541636816606" expanded="true" signature="2015:2018" ph="..." />
+            <marker date="1541636903745" expanded="true" signature="2015:2018" ph="..." />
           </folding>
         </state>
       </provider>

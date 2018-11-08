@@ -61,7 +61,7 @@ class Model(nn.Module):
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
-		self.linear2 = nn.Linear(640, 16)
+		self.linear2 = nn.Linear(320, 16)
 		self.linear1 = nn.Linear(16, 6)
 
 
@@ -87,7 +87,7 @@ class Model(nn.Module):
 		x = x.view(batch_size, sequence_length, -1)
 		x, hidden = self.lstm_layer(x)
 		x = x.permute(2, 1, 0)
-		x = self.linear1(x)
+		x = self.linear2(x)
 
 		return x
 
