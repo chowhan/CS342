@@ -87,8 +87,8 @@ class Model(nn.Module):
 		x = x.view(batch_size, sequence_length, -1)
 		x, hidden = self.lstm_layer(x)
 		x = x.permute(2, 1, 0)
-		x = self.linear2(x)
 		x = self.linear1(x)
+		#x = self.linear1(x)
 
 		return x
 
