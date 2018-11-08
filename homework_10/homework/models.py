@@ -53,7 +53,7 @@ class Model(nn.Module):
 		self.conv4 = nn.Conv2d(256, 512, ks, 2)
 
 		self.lstm_layer = nn.LSTM(
-				input_size = 256,
+				input_size = 512,
 				hidden_size = self.hidden_dim,
 				num_layers = self.num_lstm_layers,
 				bidirectional = self.isBidirectional,
