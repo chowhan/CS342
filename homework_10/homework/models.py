@@ -52,12 +52,16 @@ class Model(nn.Module):
 		self.hidden_dim = 64
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 32 , ks, 4, ks//2)
-		self.bn1 = nn.BatchNorm2d(32)
-		self.conv2 = nn.Conv2d(32, 64, ks, 4, ks//2)
-		self.bn2 = nn.BatchNorm2d(64)
-		self.conv3 = nn.Conv2d(64, 128 , ks, 4, ks//2)
-		self.bn3 = nn.BatchNorm2d(128)
+		self.conv1 = nn.Conv2d(3 , 16 , 5, 2, ks//2)
+		self.bn1 = nn.BatchNorm2d(16)
+		self.conv2 = nn.Conv2d(16, 32, 5, 2, ks//2)
+		self.bn2 = nn.BatchNorm2d(32)
+		self.conv3 = nn.Conv2d(32, 64 , 3, 2, ks//2)
+		self.bn3 = nn.BatchNorm2d(64)
+		self.conv4 = nn.Conv2d(64, 128 , 3, 1, ks//2)
+		self.bn4 = nn.BatchNorm2d(128)
+
+		self.linear1 = nn.Linear(15488, 128)
 
 		self.lstm_layer = nn.GRU(
 				input_size = 128,
@@ -68,7 +72,7 @@ class Model(nn.Module):
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
-		self.linear = nn.Linear(
+		self.linear2 = nn.Linear(
 				in_features = self.num_directions * self.hidden_dim,
 				out_features = self.target_size
 			)
@@ -91,16 +95,22 @@ class Model(nn.Module):
 
 		x = x.view(batch_size * sequence_length, 3, 64, 64)
 		x = self.relu(self.conv1(x))
+		x = self.bn1(x)
 		x = self.relu(self.conv2(x))
+		x = self.bn2(x)
 		x = self.relu(self.conv3(x))
+		x = self.bn3(x)
+		x = self.relu(self.conv4(x))
+		x = self.bn4(x)
 
 		x = x.view(batch_size, sequence_length, -1)
+		x = self.linear1(x)
 		x = x.permute(1, 0, 2)
 		x, hidden = self.lstm_layer(x, hidden)
 		x = x.permute(1, 0, 2)
 		# dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
 		# dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
-		x = self.linear(x)
+		x = self.linear2(x)
 
 		out = x
 		if test:
