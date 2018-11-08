@@ -61,8 +61,10 @@ class Model(nn.Module):
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
-		self.linear2 = nn.Linear(320, 16)
-		self.linear1 = nn.Linear(16, 6)
+		nn.Linear(
+				in_features = self.num_directions * self.hidden_dim,
+				out_features = self.target_size
+			)
 
 
 
