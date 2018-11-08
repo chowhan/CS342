@@ -17,6 +17,8 @@ def cycle(seq):
 		for elem in seq:
 			yield elem
 
+weights = np.array([9.3, 2, 20.4, 13.1, 1.2, 3.2])
+
 def train(max_iter, batch_size=16, log_dir=None):
 	'''
 	This is the main training function, feel free to modify some of the code, but it
@@ -48,7 +50,7 @@ def train(max_iter, batch_size=16, log_dir=None):
 	optimizer = optim.Adam(model.parameters(), lr = 1e-3, weight_decay=1e-4)
 	
 	# Loss criterion. Your need to replace this with one that considers class imbalance
-	loss = nn.BCEWithLogitsLoss()
+	loss = nn.BCEWithLogitsLoss(weight = torch.from_numpy(weights).float().cuda())
 	
 	for t in range(max_iter):
 		batch_obs, batch_actions = next(train_dataloader_iterator)
