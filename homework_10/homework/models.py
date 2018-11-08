@@ -62,7 +62,6 @@ class Model(nn.Module):
 				num_layers = self.num_lstm_layers,
 				bidirectional = self.isBidirectional,
 				batch_first = True,
-				dropout = 0.2
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
@@ -97,7 +96,7 @@ class Model(nn.Module):
 		x = x.permute(1, 0, 2)
 		x, hidden = self.lstm_layer(x)
 		x = x.permute(1, 0, 2)
-		dense_outputs = self.dropout_layer(self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim)))
+		dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
 		dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 
 		out = dense_outputs
