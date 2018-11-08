@@ -44,7 +44,7 @@ class Model(nn.Module):
 			self.num_directions = 1
 
 		# The Number of Hidden Dimensions in the LSTM Layers
-		self.hidden_dim = 32
+		self.hidden_dim = 16
 
 		ks = 5
 		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
