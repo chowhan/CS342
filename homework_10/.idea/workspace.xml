@@ -39,12 +39,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="157" />
+          <entry key="py" value="280" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="157" />
+          <entry key="Python" value="280" />
         </counts>
       </usages-collector>
     </session>
@@ -54,11 +54,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/homework/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="681">
-              <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+            <state relative-caret-position="724">
+              <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <marker date="1541637604959" expanded="true" signature="2110:2113" ph="..." />
+                <marker date="1541638001396" expanded="true" signature="2211:2214" ph="..." />
               </folding>
             </state>
           </provider>
@@ -151,11 +151,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/homework/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+        <state relative-caret-position="724">
+          <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <marker date="1541637604959" expanded="true" signature="2110:2113" ph="..." />
+            <marker date="1541638001396" expanded="true" signature="2211:2214" ph="..." />
           </folding>
         </state>
       </provider>

@@ -88,13 +88,11 @@ class Model(nn.Module):
 
 		x = x.view(batch_size, sequence_length, -1)
 		x, hidden = self.lstm_layer(x)
-		x = x.permute(2, 1, 0)
-		print(x.size())
-		x = self.linear(x)
-		#x = self.linear1(x)
+		dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
+		dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 
-		return x
-
+		out = dense_outputs
+		return out
 		
 	def policy(self):
 		return Policy(self)
