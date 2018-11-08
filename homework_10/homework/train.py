@@ -50,7 +50,7 @@ def train(max_iter, batch_size=16, log_dir=None):
 	optimizer = optim.Adam(model.parameters(), lr = 1e-3, weight_decay=1e-4)
 	
 	# Loss criterion. Your need to replace this with one that considers class imbalance
-	loss = nn.BCEWithLogitsLoss(weight = torch.from_numpy(weights).float().cuda())
+	loss = nn.BCEWithLogitsLoss()
 	
 	for t in range(max_iter):
 		batch_obs, batch_actions = next(train_dataloader_iterator)
