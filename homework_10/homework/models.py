@@ -59,7 +59,7 @@ class Model(nn.Module):
 		self.conv3 = nn.Conv2d(64, 128 , ks, 4, ks//2)
 		self.bn3 = nn.BatchNorm2d(128)
 
-		self.lstm_layer = nn.RNN(
+		self.lstm_layer = nn.GRU(
 				input_size = 128,
 				hidden_size = self.hidden_dim,
 				num_layers = self.num_lstm_layers,
