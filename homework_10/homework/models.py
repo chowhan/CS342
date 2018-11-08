@@ -61,7 +61,8 @@ class Model(nn.Module):
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
-		self.linear = nn.Linear(32, 6)
+		self.linear2 = nn.Linear(640, 16)
+		self.linear1 = nn.Linear(16, 6)
 
 
 
