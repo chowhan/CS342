@@ -90,7 +90,7 @@ class Model(nn.Module):
 
 		x = x.view(batch_size, sequence_length, -1)
 		x, hidden = self.lstm_layer(x)
-		dense_outputs = self.dropout(self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim)))
+		dense_outputs = self.dropout_layer(self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim)))
 		dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 
 		out = dense_outputs
