@@ -47,14 +47,11 @@ class Model(nn.Module):
 		self.hidden_dim = 64
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 16 , ks, 4, ks//2)
-		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 32, ks, 4, ks//2)
+		self.conv1 = nn.Conv2d(3 , 32 , ks, 4, ks//2)
 		self.bn1 = nn.BatchNorm2d(32)
-		self.conv3 = nn.Conv2d(32, 64 , ks, 4, ks//2)
-		self.bn1 = nn.BatchNorm2d(64)
-		self.conv4 = nn.Conv2d(64, 128, ks, 4, ks//2)
-		self.bn1 = nn.BatchNorm2d(128)
+		self.conv2 = nn.Conv2d(32, 64, ks, 4, ks//2)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv3 = nn.Conv2d(64, 128 , ks, 4, ks//2)
 
 		self.lstm_layer = nn.RNN(
 				input_size = 128,
@@ -90,7 +87,6 @@ class Model(nn.Module):
 		x = self.relu(self.conv1(x))
 		x = self.relu(self.conv2(x))
 		x = self.relu(self.conv3(x))
-		x = self.relu(self.conv4(x))
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = x.permute(1, 0, 2)
