@@ -61,7 +61,7 @@ class Model(nn.Module):
 			)
 
 		self.relu = nn.LeakyReLU(inplace=True)
-		nn.Linear(
+		self.linear = nn.Linear(
 				in_features = self.num_directions * self.hidden_dim,
 				out_features = self.target_size
 			)
@@ -90,7 +90,7 @@ class Model(nn.Module):
 		x, hidden = self.lstm_layer(x)
 		x = x.permute(2, 1, 0)
 		print(x.size())
-		x = self.linear1(x)
+		x = self.linear(x)
 		#x = self.linear1(x)
 
 		return x
