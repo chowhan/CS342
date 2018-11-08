@@ -44,16 +44,16 @@ class Model(nn.Module):
 			self.num_directions = 1
 
 		# The Number of Hidden Dimensions in the LSTM Layers
-		self.hidden_dim = 16
+		self.hidden_dim = 64
 
-		ks = 4
-		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
+		ks = 5
+		self.conv1 = nn.Conv2d(3 , 16 , ks, 4, ks//2)
 		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 32, ks, 2)
+		self.conv2 = nn.Conv2d(16, 32, ks, 4, ks//2)
 		self.bn1 = nn.BatchNorm2d(32)
-		self.conv3 = nn.Conv2d(32, 64 , ks, 2)
+		self.conv3 = nn.Conv2d(32, 64 , ks, 4, ks//2)
 		self.bn1 = nn.BatchNorm2d(64)
-		self.conv4 = nn.Conv2d(64, 128, ks, 2)
+		self.conv4 = nn.Conv2d(64, 128, ks, 4, ks//2)
 		self.bn1 = nn.BatchNorm2d(128)
 
 		self.lstm_layer = nn.RNN(
@@ -96,8 +96,8 @@ class Model(nn.Module):
 		x = x.permute(1, 0, 2)
 		x, hidden = self.lstm_layer(x)
 		x = x.permute(1, 0, 2)
-		dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
-		dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
+		# dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
+		# dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 
 		out = dense_outputs
 		return out
