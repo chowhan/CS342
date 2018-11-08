@@ -11,11 +11,16 @@ class Policy:
 		'''
 		Your code here
 		'''
+		self.model = model
+		self.hid = None
 		
 	def __call__(self, obs):
 		'''
 		Your code here
 		'''
+		obs = obs.contiguous().view(1, 1, -1)
+		out, self.hidden = self.model(obs, True, self.hidden)
+		return out[0, -1, :]
 		
 class Model(nn.Module):
 	def __init__(self):
@@ -73,7 +78,7 @@ class Model(nn.Module):
 
 
 		
-	def forward(self, hist):
+	def forward(self, hist, test = False, hidden = None):
 		'''
 		Your code here
 		Input size: (batch_size, sequence_length, channels, height, width)
@@ -91,14 +96,17 @@ class Model(nn.Module):
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = x.permute(1, 0, 2)
-		x, hidden = self.lstm_layer(x)
+		x, hidden = self.lstm_layer(x, hidden)
 		x = x.permute(1, 0, 2)
 		# dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
 		# dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 		x = self.linear(x)
 
 		out = x
-		return out
+		if test:
+			return out, hidden
+		else:
+			return out
 		
 	def policy(self):
 		return Policy(self)
