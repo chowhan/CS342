@@ -19,7 +19,7 @@ class Policy:
 		Your code here
 		'''
 		obs = obs.contiguous().view(1, 1, -1)
-		out, self.hidden = self.model(obs, True, self.hidden)
+		out, self.hidden = self.model(obs, True, self.hid)
 		return out[0, -1, :]
 		
 class Model(nn.Module):
