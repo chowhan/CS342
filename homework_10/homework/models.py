@@ -29,7 +29,7 @@ class Model(nn.Module):
 		self.width=100
 
 		# The Dropout Layer Probability. Same for all layers
-		self.dropout_prob = 0.0
+		self.dropout_prob = 0.2
 
 		# Option to use a stacked LSTM
 		self.num_lstm_layers = 1
@@ -66,6 +66,8 @@ class Model(nn.Module):
 				out_features = self.target_size
 			)
 
+		self.dropout_layer = nn.Dropout(self.dropout_prob)
+
 
 
 		
@@ -88,7 +90,7 @@ class Model(nn.Module):
 
 		x = x.view(batch_size, sequence_length, -1)
 		x, hidden = self.lstm_layer(x)
-		dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
+		dense_outputs = self.dropout(self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim)))
 		dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
 
 		out = dense_outputs
