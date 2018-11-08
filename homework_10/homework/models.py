@@ -50,7 +50,7 @@ class Model(nn.Module):
 		self.conv1 = nn.Conv2d(3 , 16 , ks, 2)
 		self.conv2 = nn.Conv2d(16, 32 , ks, 2)
 		self.conv3 = nn.Conv2d(32, 64 , ks, 2)
-		self.conv4 = nn.Conv2d(64, 128, ks, 2)
+		self.conv4 = nn.Conv2d(64, 256, ks, 2)
 
 		self.lstm_layer = nn.LSTM(
 				input_size = 128,
