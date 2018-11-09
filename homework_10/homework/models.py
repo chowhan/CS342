@@ -12,7 +12,7 @@ class Policy:
 		Your code here
 		'''
 		self.model = model
-		self.hid = None
+		self.hist = []
 		
 	def __call__(self, obs):
 		'''
