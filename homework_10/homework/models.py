@@ -18,18 +18,23 @@ class Policy:
 		'''
 		Your code here
 		'''
-		obs = obs.contiguous().view(1, 1, -1)
-		out, self.hidden = self.model(obs, True, self.hid)
-		return out[0, -1, :]
+		# obs = obs.contiguous().view(1, 1, -1)
+		# out, self.hidden = self.model(obs, True, self.hid)
+		# return out[0, -1, :]
+		self.hist.append(input)
+		if len(self.hist) > self.model.width:
+			self.hist = self.hist[-self.model.width:]
+		x = torch.stack(self.hist, dim=0)[None]
+		return self.model(x)[0,-1,:]
 		
 class Model(nn.Module):
-	def __init__(self):
+	def __init__(self, channels=[16,32,16], ks=5):
 		super().__init__()
 		
 		'''
 		Your code here
 		'''
-		# The number of sentiment classes
+		# # The number of sentiment classes
 		self.target_size = 6
 		self.width=100
 
@@ -39,7 +44,7 @@ class Model(nn.Module):
 		# Option to use a stacked LSTM
 		self.num_lstm_layers = 2
 
-		# Option to Use a bidirectional LSTM
+		# # Option to Use a bidirectional LSTM
 
 		self.isBidirectional = False
 
@@ -48,28 +53,26 @@ class Model(nn.Module):
 		else:
 			self.num_directions = 1
 
-		# The Number of Hidden Dimensions in the LSTM Layers
+		# # The Number of Hidden Dimensions in the LSTM Layers
 		self.hidden_dim = 64
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 16 , 5, 2, ks//2)
-		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 32, 5, 2, ks//2)
-		self.bn2 = nn.BatchNorm2d(32)
-		self.conv3 = nn.Conv2d(32, 64 , 3, 2, ks//2)
-		self.bn3 = nn.BatchNorm2d(64)
-		self.conv4 = nn.Conv2d(64, 128 , 3, 1, ks//2)
-		self.bn4 = nn.BatchNorm2d(128)
+		self.conv1 = nn.Conv2d(3 , 32 , ks, 4, ks//2)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv2 = nn.Conv2d(32, 64, ks, 4, ks//2)
+		self.bn2 = nn.BatchNorm2d(64)
+		self.conv3 = nn.Conv2d(64, 128 , ks, 4, ks//2)
+		self.bn3 = nn.BatchNorm2d(128)
 
-		self.linear1 = nn.Linear(15488, 128)
+		self.linear1 = nn.Linear(128, 32)
 
-		self.lstm_layer = nn.GRU(
-				input_size = 128,
-				hidden_size = self.hidden_dim,
-				num_layers = self.num_lstm_layers,
-				bidirectional = self.isBidirectional,
-				batch_first = True,
-			)
+		# self.lstm_layer = nn.GRU(
+		# 		input_size = 128,
+		# 		hidden_size = self.hidden_dim,
+		# 		num_layers = self.num_lstm_layers,
+		# 		bidirectional = self.isBidirectional,
+		# 		batch_first = True,
+		# 	)
 
 		self.relu = nn.LeakyReLU(inplace=True)
 		self.linear2 = nn.Linear(
@@ -77,7 +80,20 @@ class Model(nn.Module):
 				out_features = self.target_size
 			)
 
-		self.dropout_layer = nn.Dropout(self.dropout_prob)
+		# self.dropout_layer = nn.Dropout(self.dropout_prob)
+
+		c0 = 32
+		layers = []
+		self.width = 1
+		for c in channels:
+			layers.append( nn.Conv1d(c0, c, ks) )
+			layers.append( nn.LeakyReLU() )
+			c0 = c
+			self.width += ks-1
+		layers.append( nn.Conv1d(c0, 6, ks) )
+		self.width += ks-1
+		
+		self.model = nn.Sequential(*layers)
 
 
 
@@ -100,17 +116,16 @@ class Model(nn.Module):
 		x = self.bn2(x)
 		x = self.relu(self.conv3(x))
 		x = self.bn3(x)
-		x = self.relu(self.conv4(x))
-		x = self.bn4(x)
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = self.linear1(x)
-		x = x.permute(1, 0, 2)
-		x, hidden = self.lstm_layer(x, hidden)
-		x = x.permute(1, 0, 2)
-		# dense_outputs = self.linear(x.contiguous().view(-1, self.num_directions*self.hidden_dim))
-		# dense_outputs = dense_outputs.view(-1, hist.size(1), self.target_size)
-		x = self.dropout_layer(self.linear2(x))
+		x = x.permute(0, 2, 1)
+		# x, hidden = self.lstm_layer(x, hidden)
+		x = F.pad(x, (self.width-1,0))
+		x = self.model(x)
+		x = x.permute(0, 2, 1)
+		#x = x.view(12288, -1)
+		# x = self.linear2(x)
 
 		out = x
 		if test:
