@@ -61,7 +61,7 @@ class Model(nn.Module):
 		self.conv2 = nn.Conv2d(32, 32, ks, 4, ks//2)
 		self.conv3 = nn.Conv2d(32, 64 , ks, 2, ks//2)
 
-		self.linear1 = nn.Linear(2048, 32)
+		self.linear1 = nn.Linear(1024, 32)
 
 		# self.lstm_layer = nn.GRU(
 		# 		input_size = 128,
