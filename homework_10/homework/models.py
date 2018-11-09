@@ -36,8 +36,8 @@ class Model(nn.Module):
 		'''
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 16, ks, 2)
-		self.conv2 = nn.Conv2d(16, 32, ks, 4)
+		self.conv1 = nn.Conv2d(3 , 16, ks, 4)
+		self.conv2 = nn.Conv2d(16, 32, 3, 2)
 		self.conv3 = nn.Conv2d(32, 64, ks, 2)
 
 		self.linear1 = nn.Linear(256, 64)
