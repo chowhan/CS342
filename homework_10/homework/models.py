@@ -40,14 +40,14 @@ class Model(nn.Module):
 		self.conv2 = nn.Conv2d(16, 32, ks, 2, 2)
 		self.conv3 = nn.Conv2d(32, 64, ks, 2, 2)
 
-		self.linear1 = nn.Linear(4096, 2048)
-		self.linear2 = nn.Linear(2048, 32)
+		self.linear1 = nn.Linear(4096, 1000)
+		self.linear2 = nn.Linear(1000, 6)
 
 		self.relu = nn.ReLU(inplace=True)
 
 		# self.dropout_layer = nn.Dropout(self.dropout_prob)
 
-		c0 = 32
+		c0 = 6
 		layers = []
 		self.width = 1
 		for c in channels:
