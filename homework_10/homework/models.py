@@ -108,11 +108,8 @@ class Model(nn.Module):
 
 		x = x.view(batch_size * sequence_length, 3, 64, 64)
 		x = self.relu(self.conv1(x))
-		x = self.bn1(x)
 		x = self.relu(self.conv2(x))
-		x = self.bn2(x)
 		x = self.relu(self.conv3(x))
-		x = self.bn3(x)
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = self.relu(self.linear1(x))
