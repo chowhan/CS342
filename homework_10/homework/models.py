@@ -64,7 +64,7 @@ class Model(nn.Module):
 		self.conv3 = nn.Conv2d(64, 128 , ks, 3, ks//2)
 		self.bn3 = nn.BatchNorm2d(128)
 
-		self.linear1 = nn.Linear(128, 32)
+		self.linear1 = nn.Linear(1152, 32)
 
 		# self.lstm_layer = nn.GRU(
 		# 		input_size = 128,
