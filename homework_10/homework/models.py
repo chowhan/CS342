@@ -118,7 +118,7 @@ class Model(nn.Module):
 		x = self.bn3(x)
 
 		x = x.view(batch_size, sequence_length, -1)
-		x = self.linear1(x)
+		x = self.relu(self.linear1(x))
 		x = x.permute(0, 2, 1)
 		# x, hidden = self.lstm_layer(x, hidden)
 		x = F.pad(x, (self.width-1,0))
