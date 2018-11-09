@@ -21,7 +21,7 @@ class Policy:
 		# obs = obs.contiguous().view(1, 1, -1)
 		# out, self.hidden = self.model(obs, True, self.hid)
 		# return out[0, -1, :]
-		self.hist.append(input)
+		self.hist.append(obs)
 		if len(self.hist) > self.model.width:
 			self.hist = self.hist[-self.model.width:]
 		x = torch.stack(self.hist, dim=0)[None]
