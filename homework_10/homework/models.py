@@ -57,9 +57,9 @@ class Model(nn.Module):
 		self.hidden_dim = 64
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 32 , ks, 2, ks//2)
-		self.conv2 = nn.Conv2d(32, 32, ks, 2, ks//2)
-		self.conv3 = nn.Conv2d(32, 64 , ks, 2, ks//2)
+		self.conv1 = nn.Conv2d(3 , 32 , ks, 3, ks//2)
+		self.conv2 = nn.Conv2d(32, 32, ks, 3, ks//2)
+		self.conv3 = nn.Conv2d(32, 64 , ks, 3, ks//2)
 
 		self.linear1 = nn.Linear(2048, 32)
 
