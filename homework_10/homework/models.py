@@ -34,48 +34,15 @@ class Model(nn.Module):
 		'''
 		Your code here
 		'''
-		# # The number of sentiment classes
-		self.target_size = 6
-		self.width=100
-
-		# The Dropout Layer Probability. Same for all layers
-		self.dropout_prob = 0.2
-
-		# Option to use a stacked LSTM
-		self.num_lstm_layers = 2
-
-		# # Option to Use a bidirectional LSTM
-
-		self.isBidirectional = False
-
-		if self.isBidirectional:
-			self.num_directions = 2
-		else:
-			self.num_directions = 1
-
-		# # The Number of Hidden Dimensions in the LSTM Layers
-		self.hidden_dim = 64
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 32 , ks, 2, ks//2)
-		self.conv2 = nn.Conv2d(32, 32, ks, 4, ks//2)
+		self.conv1 = nn.Conv2d(3 , 16 , ks, 2, ks//2)
+		self.conv2 = nn.Conv2d(16, 32, ks, 4, ks//2)
 		self.conv3 = nn.Conv2d(32, 64 , ks, 2, ks//2)
 
 		self.linear1 = nn.Linear(1024, 32)
 
-		# self.lstm_layer = nn.GRU(
-		# 		input_size = 128,
-		# 		hidden_size = self.hidden_dim,
-		# 		num_layers = self.num_lstm_layers,
-		# 		bidirectional = self.isBidirectional,
-		# 		batch_first = True,
-		# 	)
-
 		self.relu = nn.LeakyReLU(inplace=True)
-		self.linear2 = nn.Linear(
-				in_features = self.num_directions * self.hidden_dim,
-				out_features = self.target_size
-			)
 
 		# self.dropout_layer = nn.Dropout(self.dropout_prob)
 
@@ -114,12 +81,9 @@ class Model(nn.Module):
 		x = x.view(batch_size, sequence_length, -1)
 		x = self.relu(self.linear1(x))
 		x = x.permute(0, 2, 1)
-		# x, hidden = self.lstm_layer(x, hidden)
 		x = F.pad(x, (self.width-1,0))
 		x = self.model(x)
 		x = x.permute(0, 2, 1)
-		#x = x.view(12288, -1)
-		# x = self.linear2(x)
 
 		out = x
 		if test:
