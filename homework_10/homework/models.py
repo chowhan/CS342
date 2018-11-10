@@ -36,15 +36,12 @@ class Model(nn.Module):
 		'''
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 16, ks, 2, 2)
-		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 32, ks, 2, 2)
-		self.bn2 = nn.BatchNorm2d(32)
-		self.conv3 = nn.Conv2d(32, 64, ks, 2, 2)
-		self.bn3 = nn.BatchNorm2d(64)
+		self.conv1 = nn.Conv2d(3 , 32, ks, 2, 2)
+		self.conv2 = nn.Conv2d(32, 64, ks, 4, 2)
+		self.conv3 = nn.Conv2d(64, 96, ks, 2, 2)
 
-		self.linear1 = nn.Linear(4096, 1000)
-		self.linear2 = nn.Linear(1000, 6)
+		self.linear1 = nn.Linear(1536, 6)
+		# self.linear2 = nn.Linear(1000, 6)
 
 		self.relu = nn.ReLU(inplace=True)
 
@@ -78,13 +75,13 @@ class Model(nn.Module):
 		x = hist
 
 		x = x.view(batch_size * sequence_length, 3, 64, 64)
-		x = self.bn1(self.relu(self.conv1(x)))
-		x = self.bn2(self.relu(self.conv2(x)))
-		x = self.bn3(self.relu(self.conv3(x)))
+		x = self.relu(self.conv1(x))
+		x = self.relu(self.conv2(x))
+		x = self.relu(self.conv3(x))
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = self.relu(self.linear1(x))
-		x = self.linear2(x)
+		# x = self.linear2(x)
 		x = x.permute(0, 2, 1)
 		x = F.pad(x, (self.width-1,0))
 		x = self.model(x)
