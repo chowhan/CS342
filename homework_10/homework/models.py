@@ -36,14 +36,14 @@ class Model(nn.Module):
 		'''
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 16, ks, 2)
+		self.conv1 = nn.Conv2d(3 , 16, ks, 2, 2)
 		self.bn1 = nn.BatchNorm2d(16)
-		self.conv2 = nn.Conv2d(16, 32, ks, 4, 1)
+		self.conv2 = nn.Conv2d(16, 32, ks, 4, 2)
 		self.bn2 = nn.BatchNorm2d(32)
-		self.conv3 = nn.Conv2d(32, 64, ks, 2)
+		self.conv3 = nn.Conv2d(32, 64, ks, 2, 2)
 		self.bn3 = nn.BatchNorm2d(64)
 
-		self.linear1 = nn.Linear(256, 128)
+		self.linear1 = nn.Linear(1024, 128)
 		self.linear2 = nn.Linear(128, 32)
 
 		self.relu = nn.ReLU(inplace=True)
