@@ -36,18 +36,21 @@ class Model(nn.Module):
 		'''
 
 		ks = 5
-		self.conv1 = nn.Conv2d(3 , 32, ks, 2, 2)
-		self.conv2 = nn.Conv2d(32, 64, ks, 4, 2)
-		self.conv3 = nn.Conv2d(64, 96, ks, 2, 2)
+		self.conv1 = nn.Conv2d(3 , 16, ks, 2)
+		self.bn1 = nn.BatchNorm2d(16)
+		self.conv2 = nn.Conv2d(16, 32, ks, 4, 1)
+		self.bn1 = nn.BatchNorm2d(32)
+		self.conv3 = nn.Conv2d(32, 64, ks, 2)
+		self.bn1 = nn.BatchNorm2d(64)
 
-		self.linear1 = nn.Linear(1536, 6)
-		# self.linear2 = nn.Linear(1000, 6)
+		self.linear1 = nn.Linear(256, 128)
+		self.linear2 = nn.Linear(128, 32)
 
 		self.relu = nn.ReLU(inplace=True)
 
 		# self.dropout_layer = nn.Dropout(self.dropout_prob)
 
-		c0 = 6
+		c0 = 32
 		layers = []
 		self.width = 1
 		for c in channels:
@@ -81,7 +84,7 @@ class Model(nn.Module):
 
 		x = x.view(batch_size, sequence_length, -1)
 		x = self.relu(self.linear1(x))
-		# x = self.linear2(x)
+		x = self.relu(self.linear2(x))
 		x = x.permute(0, 2, 1)
 		x = F.pad(x, (self.width-1,0))
 		x = self.model(x)
